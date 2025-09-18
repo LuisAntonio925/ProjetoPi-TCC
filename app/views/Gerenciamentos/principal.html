@@ -1,0 +1,57 @@
+#{extends 'main.html' /}
+#{set title:'Lista de clientes' /}
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nome do Seu Serviço</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   
+</head>
+<body>
+    <header class="header"> <h1>RestApp</h1>
+        <p class="slogan">Gerencie clientes e restaurantes com facilidade e eficiência.</p>
+    </header>
+
+    <div class="separator"></div>
+
+    <main> <div class="container">
+            <div class="card">
+                <i class="fas fa-user-friends icon"></i>
+                <h2>Clientes</h2>
+                <p>Acesse o perfil e informações detalhadas de cada cliente cadastrado em sua plataforma.</p>
+                <a href="@{gerenciamentos.formCadastro}">
+                <button >Cadastrar Cliente</button>
+                </a>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-store-alt icon"></i>
+                <h2>Restaurantes</h2>
+                <p>Gerencie dados e cardápios dos restaurantes parceiros, atualize informações e promoções.</p>
+                <a href="@{restaurantes.formCadastrarRestaurante}">
+                <button >Cadastrar Restaurantes</button>
+                </a>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-clipboard-list icon"></i>
+                <h2>Lista de Clientes</h2>
+                <p>Visualize uma lista completa de todos os clientes registrados, com filtros e opções de busca.</p>
+                <a href="@{gerenciamentos.listar}">
+                <button >Ver Lista</button>
+                </a>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-utensils icon"></i>
+                <h2>Lista de Restaurantes</h2>
+                <p>Explore a lista de todos os restaurantes parceiros, seus status e informações de contato.</p>
+                <a href="@{restaurantes.listar2}">
+                <button >Ver Lista</button>
+                </a>
+				</div>

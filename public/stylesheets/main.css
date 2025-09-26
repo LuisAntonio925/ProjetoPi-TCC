@@ -1,3 +1,4 @@
+
 .verde{
 	color:white;
 	background-color:green;
@@ -6,6 +7,7 @@
 	color:white;
 	background-color:red;
 }
+
 :root { /*css da pagina principal*/
             --primary-color: #A34E2B; /* Marrom aconchegante para destaque */
             --secondary-color: #D4A373; /* Bege claro para tons quentes */

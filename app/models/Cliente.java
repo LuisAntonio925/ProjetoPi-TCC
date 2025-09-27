@@ -14,11 +14,11 @@ import play.db.jpa.Model;
 public class Cliente extends Model {
 	
 	public String nome;
-	public String email;
 	public String telefone;
 	
+	public String email;
 	public String senha;
-	public String login;
+
 	
 	@Enumerated(EnumType.STRING)
 	public Status status;

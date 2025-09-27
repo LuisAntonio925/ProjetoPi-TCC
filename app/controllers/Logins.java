@@ -9,16 +9,16 @@ public class Logins extends Controller{
 		render();
 	}
 	
-	public static void logar(String login, String senha) {
-     	Cliente cliente = Cliente.find("login = ?1 and senha = ?2",
-              	login, senha).first();
+	public static void logar(String email, String senha) {
+     	Cliente cliente = Cliente.find("email = ?1 and senha = ?2",
+              	email, senha).first();
      	if (cliente == null) {
-          	flash.error("Login ou senha inválidos");
+          	flash.error("email ou senha inválidos");
           	form(); //Redireciona para form de login
      	} else {
           	session.put("usuarioLogado", cliente.email);
           	flash.success("Logado com sucesso!");
-          	Restaurantes.listar2(null);; //Página inicial
+          	Gerenciamentos.principal(); //Página inicial
      	}
  	}
 	

@@ -13,7 +13,7 @@
 </head>
 <body>
     <header class="header">
-        <h1>Logue no site</</h1>
+        <h1>Logue no site</h1>
         
     </header>
 
@@ -22,18 +22,18 @@
     <main>
         <div class="form-card">
             <h2>Login</h2>
-            <form action="@{Logins.logar}">
+            <form action="@{Logins.logar}" method="post">
                 
        
                 <div class="form-group">
                     <label for="iEmail">Email:</label>
-                    <input type="email" id="iEmail" name="login" >
+                    <input type="email" id="iEmail" name="email" >
                 </div>
                 <div class="form-group">
                     <label for="iSenha">Senha:</label>
                     <input type="password" id="iSenha" name="senha" >
                 </div>
-                <button type="submit">Cadastrar</button>
+                <button type="submit">entrar</button>
             </form>
         </div>
     </main>

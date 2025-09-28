@@ -8,10 +8,13 @@ import models.Status;
 import play.mvc.Controller;
 import play.mvc.With;
 
-//@With(Seguranca.class)
+@With(Seguranca.class)
 public class Gerenciamentos extends Controller {
 	
 	public static void principal() {
+		render();
+	}
+	public static void principal2(){
 		render();
 	}
 	public static void formCadastro() {

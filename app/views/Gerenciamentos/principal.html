@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>RestApp</title>
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Font Awesome (ícones) -->
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
-
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Menu Estilo iFood</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<title>RestApp</title>
+
+<!-- Font Awesome (ícones) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <style>
-/* ===== Menu fixo no topo ===== */
+/* ===== Corpo e fundo ===== */
+body {
+  margin: 0;
+  padding-top: 80px; /* altura do menu fixo */
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f5e8df; /* cor de fundo combinando com letras #a34e2b */
+}
+
+/* ===== Flash message ===== */
 .flash {
   padding: 12px 20px;
   margin: 15px auto;
@@ -26,8 +25,8 @@
   border-radius: 8px;
   font-weight: 600;
   text-align: center;
-  opacity: 1;               /* começa visível */
-  transition: opacity 0.8s ease; /* animação para desaparecer */
+  opacity: 1;
+  transition: opacity 0.8s ease;
 }
 
 .flash.success {
@@ -42,26 +41,20 @@
   border: 1px solid #f5c6cb;
 }
 
+/* ===== Menu fixo no topo ===== */
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 50px;
-  background: #fff;
+  background: #fff; /* fundo do menu */
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
-  overflow: visible; /* permite que dropdown fique visível */
-}
-
-/* Ajuste do conteúdo para não ficar escondido atrás do menu fixo */
-body {
-  margin: 0;
-  padding-top: 80px; /* altura do menu */
-  font-family: 'Montserrat', sans-serif;
+  overflow: visible;
 }
 
 /* Lista de opções */
@@ -72,9 +65,50 @@ nav ul {
   margin: 0;
   padding: 0;
 }
+/* Lista de links */
+nav ul {
+  display: flex;
+  gap: 30px; /* distância entre links */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
 
-/* Links do menu */
-nav a {
+/* Usuário no mesmo nível e próximo */
+.user-icon {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* reduz espaço entre ícone e texto */
+  color: #a34e2b;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  text-decoration: none;
+}
+
+/* Dropdown do usuário */
+.user-dropdown {
+  display: none;
+  position: absolute;
+  top: 40px; /* distância do menu */
+  right: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  min-width: 160px;
+  z-index: 1000;
+}
+
+.user-icon.active + .user-dropdown {
+  display: block;
+}
+
+
+
+
+/* Links do menu com animação */
+nav a:not(.logo-link) {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -87,12 +121,29 @@ nav a {
   transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-nav a:hover {
+nav a:not(.logo-link):hover {
   color: #d4a373;
   text-shadow: 0 2px 6px rgba(212, 163, 115, 0.3);
 }
 
-/* Linha animada no hover */
+/* Linha animada no hover para os links (não afeta o logo) */
+nav a:not(.logo-link)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 3px;
+  background-color: #d4a373;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(212, 163, 115, 0.5);
+  transition: width 0.3s ease-in-out;
+}
+
+nav a:not(.logo-link):hover::after {
+  width: 100%;
+}
+
 nav a::after {
   content: '';
   position: absolute;
@@ -106,8 +157,22 @@ nav a::after {
   transition: width 0.3s ease-in-out;
 }
 
-nav a:hover::after {
+
+nav a.active::after {  /* Linha visível no hover e no ativo */
   width: 100%;
+}
+
+
+/* ===== Logo ===== */
+nav .logo a.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.4em;
+  font-weight: 700;
+  color: #a34e2b;
+  text-decoration: none;
+  transition: none; /* remove animação do logo */
 }
 
 /* ===== Usuário logado ===== */
@@ -115,28 +180,24 @@ nav a:hover::after {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 600;
+  gap: 3px; /* reduz espaço, fica mais próximo do menu */
+  font-weight: 1000;
   color: #a34e2b;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  z-index: 1001;
 }
 
-.user-icon:hover {
-  transform: scale(1.05);
-}
-
-/* Dropdown do usuário */
 .user-dropdown {
   display: none;
   position: absolute;
   right: 0;
-  top: 50px; /* distância do menu */
+  top: 50px;
   background: #fff;
+  color: #a34e2b;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   border-radius: 8px;
   overflow: hidden;
-  min-width: 160px; /* garante que fique visível */
+  min-width: 160px;
   z-index: 1000;
 }
 
@@ -150,7 +211,7 @@ nav a:hover::after {
 }
 
 .user-dropdown a:hover {
-  background-color: #d4a373;
+  background-color: #a34e2b;
   color: #fff;
 }
 
@@ -181,28 +242,29 @@ header, footer {
 #{/if}
 
 <nav>
+  
+<nav>
   <div class="logo">
-    <a href="#"><i class="fa-solid fa-utensils"></i> iFood</a>
+    <a href="#" class="logo-link"><i class="fa-solid fa-utensils"></i> RestApp</a>
   </div>
   <ul>
-    <li><a href="#">Início</a></li>
-    <li><a href="#">Cardápio</a></li>
+    <li><a href="#" class="active">Início</a></li>
+    <li><a href="@{Gerenciamentos.principal2}">Cardápio</a></li>
     <li><a href="#">Promoções</a></li>
     <li><a href="#">Contato</a></li>
+    <li>
+      <a href="#" class="user-icon" onclick="toggleUserDropdown()">
+        <i class="fa-solid fa-user"></i> Usuário
+      </a>
+      <div class="user-dropdown">
+        <a href="#">Perfil</a>
+        <a href="#">Configurações</a>
+        <a href="@{Logins.logout}">Sair</a>
+      </div>
+    </li>
   </ul>
-  <div class="user-icon" onclick="toggleUserDropdown()">
-    <i class="fa-solid fa-user"></i> Usuário
-    <div class="user-dropdown">
-      <a href="#">Perfil</a>
-      <a href="#">Configurações</a>
-      <a href="#">Sair</a>
-    </div>
-  </div>
 </nav>
 
-<!--<header>
-  <h1>Bem-vindo ao iFood!</h1>
-</header>-->
 
 <script>
 function toggleUserDropdown() {
@@ -218,13 +280,13 @@ window.addEventListener('click', function(e){
   }
 });
 
-// === Script para esconder flash automaticamente ===
+// Esconde flash automaticamente
 document.addEventListener("DOMContentLoaded", function() {
-  const flash = document.getElementById("flashMessage"); // pega a div de mensagem
+  const flash = document.getElementById("flashMessage");
   if (flash) {
     setTimeout(() => {
-      flash.classList.add("hide"); // adiciona a classe que faz sumir
-    }, 1000); // tempo em milissegundos -> 3000 = 3 segundos
+      flash.style.opacity = 0;
+    }, 3000);
   }
 });
 </script>

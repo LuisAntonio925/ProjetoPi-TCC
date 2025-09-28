@@ -8,7 +8,7 @@ import models.Restaurante;
 import play.mvc.Controller;
 import play.mvc.With;
 
-//@With(Seguranca.class)
+@With(Seguranca.class)
 public class Restaurantes extends Controller{
 	
 	public static void formCadastrarRestaurante() {

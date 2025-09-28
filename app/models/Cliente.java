@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
 
 import play.db.jpa.Model;
+import play.libs.Crypto;
 
 @Entity
 
@@ -15,11 +16,16 @@ public class Cliente extends Model {
 	
 	public String nome;
 	public String telefone;
+	public String nivel;
 	
 	public String email;
 	public String senha;
 
-	
+	//criptografar a senha;
+	public void setSenha(String s){
+        senha = Crypto.passwordHash(s);
+	}
+
 	@Enumerated(EnumType.STRING)
 	public Status status;
 	

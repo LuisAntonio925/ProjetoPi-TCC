@@ -1,749 +1,299 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RestApp - Delivery</title>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-
-<style>
-/*
-|==========================================================================
-| 0. VARIÁVEIS DE TEMA (iFood)
-|==========================================================================
-*/
-/*
-|==========================================================================
-| 0. VARIÁVEIS DE TEMA (Novo Tema: Marrom Aconchegante e Bege)
-|==========================================================================
-*/
-:root {
-    /* Cores da sua segunda página */
-    --primary-color: #A34E2B; /* Marrom aconchegante (Destaque Principal: Botões, Títulos, Preços) */
-    --secondary-color: #D4A373; /* Bege claro/Caramelo (Hover, Tags Promocionais) */
-    --tertiary-color: #333333; /* Cinza Escuro (Cor principal do texto) */
+#{extends 'main.html' /}
+#{set title:'Lista de Restaurantes' /}
     
-    /* Cores de Fundo (Combinando com o degradê da sua segunda página) */
-    --background-light: #FFFFFF; /* Fundo dos cards (Branco) */
-    --background-color-page: #FCF7EE; /* Fundo da página (Creme/Pêssego Claro) */
-    --text-dark: #333333; /* Cor principal de TODAS as letras */
-    --text-light: #FFFFFF;
-    --line-color: #E0D3C7; /* Linha de separação mais suave (Marrom claro) */
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    /* Hover com opacidade do Marrom */
-    --hover-bg: rgba(163, 78, 43, 0.1); 
-}
-
-/*
-|==========================================================================
-| 1. ESTILO BASE
-|==========================================================================
-*/
-body {
-    margin: 0;
-    padding-top: 65px; 
-    font-family: 'Montserrat', sans-serif;
-    background-color: var(--background-color-page); 
-    color: var(--text-dark);
-}
-
-main {
-    padding: 20px 40px; 
-    max-width: 1400px; 
-    margin: 0 auto;
-}
-
-.section-title {
-    font-size: 1.8em;
-    font-weight: 700;
-    color: var(--tertiary-color);
-    margin-bottom: 25px; 
-}
-
-/* ===== Flash message ===== */
-.flash {
-    padding: 12px 20px;
-    margin: 15px auto;
-    max-width: 600px;
-    border-radius: 8px;
-    font-weight: 600;
-    text-align: center;
-    opacity: 1;
-    transition: opacity 0.8s ease;
-}
-
-.flash.success {
-    background: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-.flash.error {
-    background: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-
-/*
-|==========================================================================
-| 2. MENU PRINCIPAL (ELEGANCE IFOOD)
-|==========================================================================
-*/
-
-.ifood-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 40px; 
-    height: 65px; 
-    background: var(--background-light); 
-    box-shadow: 0 2px 15px rgba(0,0,0,0.05); 
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    box-sizing: border-box; 
-    z-index: 1000;
-}
-
-/* Logo */
-.app-logo {
-    font-family: 'Playfair Display', serif; 
-    font-size: 2em; 
-    font-weight: 700;
-    color: var(--primary-color); 
-    text-decoration: none;
-    letter-spacing: 0.5px;
-    transition: color 0.3s;
-}
-
-.app-logo:hover {
-    color: var(--secondary-color); 
-}
-
-/* Busca */
-.search-bar {
-    display: flex;
-    align-items: center;
-    flex-grow: 1; 
-    max-width: 550px;
-    margin: 0 30px;
-    background-color: var(--background-light); 
-    border-radius: 25px; 
-    padding: 10px 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
-    border: 1px solid var(--line-color);
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.search-bar:focus-within {
-    border-color: var(--secondary-color);
-    box-shadow: 0 0 0 3px rgba(234, 29, 44, 0.3); /* Corrigido para a cor iFood */
-}
-
-.search-bar input {
-    border: none;
-    background: transparent;
-    flex-grow: 1;
-    padding: 0 10px;
-    font-size: 1em;
-    outline: none;
-    color: var(--text-dark);
-}
-
-.search-bar i {
-    color: var(--tertiary-color); 
-    font-size: 1.1em;
-}
-
-/* Ícones de Ação */
-.action-icons {
-    display: flex;
-    gap: 10px; 
-    align-items: center;
-}
-
-.action-icons a {
-    display: flex;
-    align-items: center;
-    padding: 10px; 
-    border-radius: 50%; 
-    text-decoration: none;
-    transition: background-color 0.2s, color 0.2s;
-    color: var(--tertiary-color); 
-}
-
-/* Botão Funções (Destaque) */
-.functions-btn {
-    border-radius: 25px !important; 
-    background-color: var(--primary-color) !important;
-    color: var(--text-light) !important;
-    padding: 10px 15px !important; 
-    font-size: 0.9em;
-    font-weight: 600;
-}
-
-.functions-btn:hover {
-    background-color: var(--tertiary-color) !important;
-    color: var(--text-light) !important;
-}
-
-.action-icons a:not(.functions-btn):hover {
-    background-color: var(--hover-bg); 
-    color: var(--primary-color);
-}
-
-.action-icons .fa-solid {
-    font-size: 1.3em; 
-    margin-right: 0; 
-}
-
-.favorite-icon {
-    color: var(--primary-color);
-}
-
-/* Dropdown */
-.user-container {
-    position: relative; 
-    z-index: 1010; 
-}
-
-.user-dropdown {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    margin-top: 10px; 
-    background: var(--background-light);
-    border-radius: 10px; 
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-    min-width: 180px;
-    overflow: hidden; 
-    border: 1px solid var(--line-color);
-}
-
-.user-container.active .user-dropdown {
-    display: block; 
-}
-
-.user-dropdown a {
-    display: block;
-    padding: 12px 18px; 
-    color: var(--tertiary-color);
-    font-weight: 500; 
-    font-size: 0.9em;
-    border-radius: 0; 
-}
-
-.user-dropdown a:hover {
-    background-color: var(--background-color-page); 
-    color: var(--primary-color);
-}
-
-
-/*
-|==========================================================================
-| 3. INFORMAÇÕES DO APP (NOVO BANNER)
-|==========================================================================
-*/
-.app-info-banner {
-    background: var(--primary-color);
-    color: var(--text-light);
-    padding: 30px;
-    border-radius: 16px;
-    text-align: center;
-    margin-bottom: 40px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.app-info-banner h2 {
-    font-size: 2em;
-    margin: 0 0 10px 0;
-    font-weight: 700;
-}
-
-.app-info-banner p {
-    font-size: 1.1em;
-    margin: 0;
-    opacity: 0.9;
-}
-
-
-/*
-|==========================================================================
-| 4. CATEGORIAS POPULARES (REVISADO - MAIS COMPACTO)
-|==========================================================================
-*/
-
-.category-compact-grid {
-    display: grid;
-    /* 6 colunas mais compactas */
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
-    gap: 15px;
-    margin-bottom: 40px;
-}
-
-.category-compact-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    text-decoration: none;
-    transition: transform 0.2s;
-    padding: 10px 5px;
-    border-radius: 8px;
-}
-
-.category-compact-card:hover {
-    transform: scale(1.05);
-    background-color: var(--line-color);
-}
-
-.category-compact-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin-bottom: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.category-compact-title {
-    font-size: 0.9em;
-    font-weight: 600;
-    color: var(--text-dark);
-}
-
-
-/*
-|==========================================================================
-| 5. CARDS DE RESTAURANTES (GRID)
-|==========================================================================
-*/
-
-.restaurant-carousel {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px; 
-    padding-bottom: 30px; 
-}
-
-.restaurant-card {
-    background: var(--background-light);
-    border-radius: 16px; 
-    overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); 
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    border: 1px solid var(--line-color);
-}
-
-.restaurant-card:hover {
-    transform: translateY(-5px); 
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15); 
-}
-
-.card-image-wrapper {
-    position: relative;
-    height: 150px;
-}
-
-.card-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.delivery-time {
-    position: absolute;
-    bottom: 12px;
-    left: 12px; 
-    background: var(--background-light);
-    color: var(--text-dark);
-    font-weight: 600;
-    padding: 6px 10px; 
-    border-radius: 8px;
-    font-size: 0.9em;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-}
-
-.card-info {
-    padding: 15px;
-}
-
-.card-name {
-    font-size: 1.2em; 
-    font-weight: 700;
-    color: var(--tertiary-color); 
-    margin: 0 0 5px 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.card-details {
-    display: flex;
-    align-items: center;
-    font-size: 0.9em;
-    color: #888; 
-    margin-bottom: 8px;
-}
-
-.rating {
-    color: var(--primary-color); 
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-}
-
-.rating i {
-    font-size: 0.9em;
-    margin-right: 3px;
-    color: var(--primary-color); 
-}
-
-.separator {
-    margin: 0 6px;
-    color: #CCC;
-}
-
-.card-tags {
-    margin-top: 10px;
-    min-height: 20px; 
-}
-.tag {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: var(--text-light);
-    font-size: 0.8em;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 6px; 
-    margin-right: 5px;
-}
-
-.tag-promo {
-    background-color: var(--secondary-color); 
-}
-
-/*
-|==========================================================================
-| 6. OFERTAS DO DIA (REVISADO: ESTILO CARDÁPIO PROMOCIONAL)
-|==========================================================================
-*/
-
-.promotional-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-    margin-bottom: 40px;
-}
-
-.promo-card {
-    display: flex;
-    background: var(--background-light);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s;
-    border: 1px solid var(--line-color);
-}
-
-.promo-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
-}
-
-.promo-image {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-}
-
-.promo-info {
-    padding: 15px;
-    flex-grow: 1;
-}
-
-.promo-tag {
-    color: var(--primary-color);
-    font-size: 0.8em;
-    font-weight: 700;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-}
-
-.promo-name {
-    font-size: 1.1em;
-    font-weight: 700;
-    color: var(--tertiary-color);
-    margin: 0 0 5px 0;
-}
-
-.promo-price {
-    font-size: 1.1em;
-    font-weight: 800;
-    color: var(--primary-color);
-    margin-top: 10px;
-}
-
-.old-price {
-    text-decoration: line-through;
-    color: #999;
-    font-size: 0.8em;
-    font-weight: 500;
-    margin-left: 10px;
-}
-
-/*
-|==========================================================================
-| 7. OPÇÃO CADASTRAR RESTAURANTE (NOVO)
-|==========================================================================
-*/
-
-.register-banner {
-    background: var(--background-light);
-    padding: 30px;
-    border-radius: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 40px;
-    border: 1px solid var(--line-color);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-}
-
-.register-text h3 {
-    font-size: 1.5em;
-    color: var(--tertiary-color);
-    margin: 0 0 5px 0;
-}
-
-.register-text p {
-    color: #666;
-    margin: 0;
-}
-
-.register-button {
-    background-color: var(--primary-color);
-    color: var(--text-light);
-    border: none;
-    padding: 12px 25px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 600;
-    transition: background-color 0.2s;
-}
-
-.register-button:hover {
-    background-color: #b81723;
-}
-
-
-/*
-|==========================================================================
-| 8. RESPONSIVIDADE GERAL
-|==========================================================================
-*/
-@media (max-width: 900px) {
-    .functions-btn span { display: none; }
-    .functions-btn { padding: 10px !important; border-radius: 50% !important; }
-    .ifood-nav { padding: 10px 20px; }
-    .search-bar { max-width: 350px; margin: 0 15px; }
-    .restaurant-carousel, .promotional-grid { gap: 20px; }
-    .register-banner { flex-direction: column; text-align: center; gap: 20px;}
-    .register-text { margin-bottom: 10px; }
-}
-
-@media (max-width: 600px) {
-    .search-bar { display: none; }
-    .ifood-nav { justify-content: space-between; }
-    .app-logo { font-size: 1.8em; }
-    main { padding: 15px; }
-    .restaurant-carousel, .promotional-grid { grid-template-columns: 1fr; }
-    .promo-card { flex-direction: column; text-align: center; }
-    .promo-image { width: 100%; height: 150px; }
-    .promo-info { padding-top: 5px; }
-    .promo-tag { position: static; display: block; margin-bottom: 10px; }
-}
-</style>
-</head>
-<body>
-
-  #{if flash.success}
-  <div class="flash success" id="flashMessage">
-    ${flash.success}
-  </div>
-#{/if}
-
-#{if flash.error}
-  <div class="flash error" id="flashMessage">
-    ${flash.error}
-  </div>
-#{/if}
-
-<nav class="ifood-nav">
-    <a href="#" class="app-logo">RestApp</a>
-    <div class="search-bar">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" placeholder="Buscar restaurantes, pratos, e mais...">
-    </div>
-    <div class="action-icons">
-        <a href="@{Gerenciamentos.principal2}" class="functions-btn">
-             <i class="fa-solid fa-bars" style="margin-right: 5px;"></i>
-             <span>Funções</span>
-        </a>
-        <a href="#" class="favorite-icon">
-            <i class="fa-solid fa-star"></i>
-        </a>
-        <div class="user-container">
-            <a href="#" class="user-icon" onclick="toggleUserDropdown(event)">
-                <i class="fa-solid fa-user"></i>
-            </a>
-            <div class="user-dropdown">
-                <a href="#">Perfil</a>
-                <a href="#">Configurações</a>
-                <a href="@{Logins.logout}">Sair</a>
-            </div>
+    <style>
+        /*
+        |==========================================================================
+        | 0. VARIÁVEIS DE TEMA
+        |==========================================================================
+        */
+        :root {
+            --primary-color: #A34E2B; 
+            --secondary-color: #D4A373; 
+            --tertiary-color: #333333; 
+            --background-light: #FFFFFF; 
+            --gradient-start: #FCF7EE; 
+            --gradient-end: #F5E8D8;    
+            --text-dark: #333333; 
+            --text-light: #FFFFFF; 
+            --button-hover: #8F3E22; 
+            --line-color: #E0D3C7; 
+            --acessar-btn-bg: var(--primary-color);
+            --acessar-btn-hover: var(--button-hover);
+            --favoritar-star: #FFD700; 
+            --cadastrar-btn-bg: var(--primary-color); 
+            --cadastrar-btn-hover: var(--button-hover);
+        }
+
+        /*
+        |==========================================================================
+        | 1. ESTILOS DE CORPO E MENU 
+        |==========================================================================
+        */
+        body {
+            padding-top: 65px; /* Libera espaço para o menu fixo */
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(to bottom, var(--gradient-start), var(--gradient-end));
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        /* Menu */
+        .ifood-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 40px; 
+            height: 65px; 
+            background: var(--background-light); 
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05); 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            box-sizing: border-box; 
+            z-index: 1000;
+        }
+
+        .app-logo {
+            font-family: 'Playfair Display', serif; 
+            font-size: 2em; 
+            font-weight: 700;
+            color: var(--primary-color); 
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .action-icons {
+            display: flex;
+            gap: 15px; 
+            align-items: center;
+        }
+
+        .action-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--tertiary-color); 
+            transition: color 0.2s;
+            line-height: 1; 
+        }
+
+        .action-icons i {
+            font-size: 1.4em; 
+        }
+        
+        .action-icons a:hover {
+            color: var(--primary-color);
+        }
+
+        .functions-btn {
+            background-color: var(--primary-color) !important;
+            color: var(--text-light) !important;
+            padding: 8px 15px !important; 
+            border-radius: 25px !important; 
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        
+        .functions-btn i {
+            margin-right: 5px;
+            font-size: 1.2em;
+        }
+        
+        /* Estilos do Dropdown (Mantidos) */
+        .user-container { position: relative; z-index: 1010; }
+        .user-dropdown { display: none; position: absolute; top: 100%; right: 0; margin-top: 10px; background: var(--background-light); border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); min-width: 180px; overflow: hidden; border: 1px solid var(--line-color); }
+        .user-container.active .user-dropdown { display: block; }
+        .user-dropdown a { padding: 12px 18px; display: block; color: var(--tertiary-color); font-weight: 500; font-size: 0.9em; }
+        .user-dropdown a:hover { background-color: var(--gradient-start); color: var(--primary-color); }
+
+
+        /*
+        |==========================================================================
+        | 2. ESTILOS DO CONTEÚDO E CARDS (Estrutura final)
+        |==========================================================================
+        */
+        main {
+            padding: 40px; 
+            max-width: 1400px; 
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .categoria-restaurantes {
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 50px;
+        }
+        
+        .categoria-restaurantes h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: var(--tertiary-color);
+            margin-bottom: 25px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--line-color);
+            display: flex; 
+            align-items: center;
+        }
+        
+        .lista-de-cards {
+            display: flex;
+            flex-wrap: wrap; 
+            gap: 20px; 
+            justify-content: flex-start;
+        }
+
+        .restaurante-card {
+            width: calc(33.333% - 14px); 
+            min-width: 280px;
+            border-radius: 8px; 
+            overflow: hidden; 
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            background-color: var(--background-light);
+            border: 1px solid var(--line-color);
+        }
+        
+        .foto-container img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .info-e-acoes {
+            padding: 15px;
+        }
+
+        .botoes-acao {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+        }
+
+        .btn-acessar {
+            background-color: var(--acessar-btn-bg);
+            color: var(--text-light);
+            padding: 8px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: background-color 0.2s;
+        }
+        
+        /* Estrela e Botão de Cadastro (Mantidos) */
+        .btn-favoritar { border: 1px solid var(--line-color); color: var(--secondary-color); border-radius: 50%; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; cursor: pointer; }
+        .btn-favoritar.favorito { color: var(--favoritar-star); border-color: var(--favoritar-star); }
+        .card-cadastro { width: 100%; max-width: 1200px; text-align: center; padding: 30px; margin: 40px 0 60px 0; border: 2px dashed var(--primary-color); border-radius: 10px; background-color: #fffaf0; }
+        .btn-cadastrar-restaurante { background-color: var(--cadastrar-btn-bg); color: var(--text-light); padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; display: inline-block; transition: background-color 0.2s; box-shadow: 0 4px 10px rgba(163, 78, 43, 0.3); }
+
+        /* Responsividade (Mantida) */
+        @media (max-width: 992px) { .restaurante-card { width: calc(50% - 10px); } }
+        @media (max-width: 650px) { .restaurante-card { width: 100%; min-width: unset; } .functions-btn span { display: none; } .functions-btn { padding: 10px !important; border-radius: 50% !important; } .functions-btn i { margin-right: 0; } }
+
+    </style>
+    
+    <nav class="ifood-nav">
+        <a href="@{Gerenciamentos.principal2}" class="app-logo">RestApp</a>
+        <div class="search-bar"></div> 
+
+        <div class="action-icons">
+             <a href="@{Gerenciamentos.principal2}" class="functions-btn">
+                 <i class="fa-solid fa-house"></i>
+                 <span>Início</span>
+             </a>
+             <a href="@{restaurantes.listar2}" title="Lista de Restaurantes">
+                 <i class="fa-solid fa-store-alt"></i>
+             </a>
+             <div class="user-container" id="userContainer">
+                 <a href="#" class="user-icon" onclick="toggleUserDropdown(event)">
+                     <i class="fa-solid fa-user"></i>
+                 </a>
+                 <div class="user-dropdown">
+                     <a href="#">Perfil Admin</a>
+                     <a href="#">Configurações</a>
+                     <a href="#">Sair</a>
+                 </div>
+             </div>
         </div>
-    </div>
-</nav>
-
-<main>
+    </nav>
     
-    <div class="app-info-banner">
-        <h2>Seu Delivery Favorito, Simplificado.</h2>
-        <p>Encontre os melhores pratos da cidade com a entrega mais rápida e preços exclusivos.</p>
-    </div>
+    <main>
+        <header class="header-content"> 
+            <h1>Os Melhores Sabores da Cidade</h1>
+            <p class="slogan">Descubra restaurantes por categoria e encontre o seu próximo prato favorito.</p>
+        </header>
 
-    <h2 class="section-title">O que você está procurando hoje?</h2>
-    <div class="category-compact-grid">
-        <a href="#" class="category-compact-card">
-            <img src="https://via.placeholder.com/80/EA1D2C/fff?text=%" alt="Promoções" class="category-compact-icon">
-            <span class="category-compact-title">Promoções</span>
-        </a>
-        <a href="#" class="category-compact-card">
-            <img src="https://via.placeholder.com/80/FFD966/333?text=B" alt="Lanches" class="category-compact-icon">
-            <span class="category-compact-title">Lanches</span>
-        </a>
-        <a href="#" class="category-compact-card">
-            <img src="https://via.placeholder.com/80/A9E7F9/333?text=P" alt="Pizza" class="category-compact-icon">
-            <span class="category-compact-title">Pizza</span>
-        </a>
-        <a href="#" class="category-compact-card">
-            <img src="https://via.placeholder.com/80/FF7F7F/fff?text=J" alt="Japonês" class="category-compact-icon">
-            <span class="category-compact-title">Japonês</span>
-        </a>
-        <a href="#" class="category-compact-card">
-            <img src="https://via.placeholder.com/80/B7E4C7/333?text=F" alt="Fitness" class="category-compact-icon">
-            <span class="category-compact-title">Fitness</span>
-        </a>
-        <a href="#" class="category-compact-card">
-            <img src="https://via.placeholder.com/80/FCF7EE/333?text=D" alt="Doces" class="category-compact-icon">
-            <span class="category-compact-title">Doces</span>
-        </a>
-    </div>
-
-    <h2 class="section-title">Ofertas Imperdíveis do Dia</h2>
-    <div class="promotional-grid">
+        <div class="separator"></div>
         
-        <a href="#" class="promo-card">
-            <img src="https://via.placeholder.com/120x120/fee2e2/333?text=B" alt="Burger Duplo" class="promo-image">
-            <div class="promo-info">
-                <p class="promo-tag">Exclusivo App</p>
-                <h3 class="promo-name">Burger Duplo de Queijo</h3>
-                <p class="promo-price">R$ 19,90 <span class="old-price">R$ 35,00</span></p>
-            </div>
-        </a>
-        
-        <a href="#" class="promo-card">
-            <img src="https://via.placeholder.com/120x120/e6f9e9/333?text=T" alt="Temaki Salmão" class="promo-image">
-            <div class="promo-info">
-                <p class="promo-tag">Entrega Grátis</p>
-                <h3 class="promo-name">Temaki Salmão + Cerveja</h3>
-                <p class="promo-price">R$ 25,00</p>
-            </div>
-        </a>
-        
-        <a href="#" class="promo-card">
-            <img src="https://via.placeholder.com/120x120/f9dcc4/333?text=C" alt="Torta de Chocolate" class="promo-image">
-            <div class="promo-info">
-                <p class="promo-tag">Sobremesa</p>
-                <h3 class="promo-name">Torta de Chocolate Gigante</h3>
-                <p class="promo-price">R$ 15,90 <span class="old-price">R$ 22,00</span></p>
-            </div>
-        </a>
-
-    </div>
-
-
-    <h2 class="section-title">Os melhores restaurantes perto de você</h2>
-    <div class="carousel-container">
-        <div class="restaurant-carousel">
-
-            <div class="restaurant-card">
-                <div class="card-image-wrapper">
-                    <img src="https://via.placeholder.com/250x150/ff7f7f/fff?text=Sushi+Place" alt="Restaurante Japonês" class="card-image">
-                    <span class="delivery-time">30-40 min</span>
-                </div>
-                <div class="card-info">
-                    <h3 class="card-name">Tokyo Sushi House</h3>
-                    <div class="card-details">
-                        <span class="rating"><i class="fa-solid fa-star"></i> 4.9</span>
-                        <span class="separator">•</span>
-                        <span class="category">Japonesa</span>
-                        <span class="separator">•</span>
-                        <span class="price">R$ 4,99</span>
+        <div class="categoria-restaurantes">
+            <h2><i class="fas fa-pizza-slice"></i> Pizzarias</h2>
+            <div class="lista-de-cards">
+                
+                <div class="restaurante-card">
+                    <div class="foto-container">
+                        <img src="https://via.placeholder.com/400x160/A34E2B/FFFFFF?text=Pizzaria+Top" alt="Pizzaria do Chef">
                     </div>
-                    <div class="card-tags">
-                        <span class="tag">Entrega Rápida</span>
+                    <div class="info-e-acoes">
+                        <h3 class="nome-restaurante">Pizzaria Napolitana Clássica</h3>
+                        <div class="botoes-acao">
+                            <a href="pagina-rest-1.html" class="btn-acessar">Acessar</a>
+                            <button class="btn-favoritar"><i class="far fa-star"></i></button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            </div>
-    </div>
-    
-    <div class="register-banner">
-        <div class="register-text">
-            <h3>Seu restaurante pode estar aqui!</h3>
-            <p>Cadastre-se e alcance milhares de clientes na sua região.</p>
+
+                <div class="restaurante-card">
+                    <div class="foto-container">
+                        <img src="https://via.placeholder.com/400x160/A34E2B/FFFFFF?text=Pizzaria+Gourmet" alt="Pizzaria do Chef">
+                    </div>
+                    <div class="info-e-acoes">
+                        <h3 class="nome-restaurante">Fornalha Gourmet</h3>
+                        <div class="botoes-acao">
+                            <a href="pagina-rest-2.html" class="btn-acessar">Acessar</a>
+                            <button class="btn-favoritar favorito"><i class="fas fa-star"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
         </div>
-        <button class="register-button">Cadastrar Restaurante</button>
-    </div>
+        
+        <div class="categoria-restaurantes">
+            <h2><i class="fas fa-fish"></i> Comida Japonesa</h2>
+            <div class="lista-de-cards">
+            </div>
+        </div>
 
-</main>
+        <div class="card-cadastro">
+            <p>Seu restaurante não está aqui? Cadastre-se agora!</p>
+            <a href="@{restaurantes.formCadastrarRestaurante}" class="btn-cadastrar-restaurante">Cadastrar Meu Restaurante</a>
+        </div>
 
-
-<script>
-    // Função para mostrar/esconder o dropdown do usuário
-    function toggleUserDropdown(e) {
-        e.preventDefault(); 
-        const userContainer = e.currentTarget.closest('.user-container');
-        userContainer.classList.toggle('active');
-        e.stopPropagation(); 
-    }
-
-    // Fecha dropdown ao clicar em qualquer lugar da janela
-    window.addEventListener('click', function(e){
-        const userContainer = document.querySelector('.user-container');
-        if(userContainer && !userContainer.contains(e.target)){
-            userContainer.classList.remove('active');
+    </main>
+    
+    <script>
+        function toggleUserDropdown(e) {
+            e.preventDefault(); 
+            const userContainer = e.currentTarget.closest('.user-container');
+            userContainer.classList.toggle('active');
+            e.stopPropagation(); 
         }
-    });
 
-    // Esconde flash automaticamente
-    document.addEventListener("DOMContentLoaded", function() {
-        const flash = document.getElementById("flashMessage");
-        if (flash) {
-            setTimeout(() => {
-                flash.style.opacity = 0;
-            }, 3000);
-        }
-    });
-</script>
+        window.addEventListener('click', function(e){
+            const userContainer = document.getElementById('userContainer');
+            if(userContainer && !userContainer.contains(e.target)){
+                userContainer.classList.remove('active');
+            }
+        });
+    </script>
 
-</body>
-</html>

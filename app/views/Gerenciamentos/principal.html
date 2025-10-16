@@ -190,11 +190,44 @@
             transition: background-color 0.2s;
         }
         
+<<<<<<< HEAD
         /* Estrela e Botão de Cadastro (Mantidos) */
         .btn-favoritar { border: 1px solid var(--line-color); color: var(--secondary-color); border-radius: 50%; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; cursor: pointer; }
         .btn-favoritar.favorito { color: var(--favoritar-star); border-color: var(--favoritar-star); }
         .card-cadastro { width: 100%; max-width: 1200px; text-align: center; padding: 30px; margin: 40px 0 60px 0; border: 2px dashed var(--primary-color); border-radius: 10px; background-color: #fffaf0; }
         .btn-cadastrar-restaurante { background-color: var(--cadastrar-btn-bg); color: var(--text-light); padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; display: inline-block; transition: background-color 0.2s; box-shadow: 0 4px 10px rgba(163, 78, 43, 0.3); }
+=======
+        /* ... dentro da tag <style> em principal.html ... */
+
+.btn-favoritar { 
+    border: 1px solid var(--line-color); 
+    color: var(--secondary-color); 
+    border-radius: 50%; 
+    width: 35px; 
+    height: 35px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    cursor: pointer; 
+    transition: color 0.3s ease, border-color 0.3s ease; 
+    /* Adicionando transição */
+    transition: all 0.3s ease;
+}
+
+/* NOVO ESTILO: Garante que a estrela e a borda fiquem amarelas/douradas quando "favorito" */
+.btn-favoritar.favorito,
+.btn-favoritar.favorito i {
+    color: var(--favoritar-star) !important; /* Força a cor amarela/dourada no ícone e no botão */
+    border-color: var(--favoritar-star) !important;
+}
+
+/* Remove a cor do ícone no estado normal para o ícone padrão */
+.btn-favoritar i {
+   transition: color 0.3s ease; /* Adiciona transição apenas para a cor do ícone */
+}
+
+/* ... o resto do seu CSS ... */
+>>>>>>> c670d922536d388f100c5e6f121e5ba9bcf29bc7
 
         /* Responsividade (Mantida) */
         @media (max-width: 992px) { .restaurante-card { width: calc(50% - 10px); } }
@@ -232,6 +265,7 @@
         </div>
     </nav>
     
+<<<<<<< HEAD
     <main>
         <header class="header-content"> 
             <h1>Os Melhores Sabores da Cidade</h1>
@@ -285,6 +319,70 @@
         </div>
 
     </main>
+=======
+ <main>
+    <header class="header-content"> 
+        <h1>Os Melhores Sabores da Cidade</h1>
+        <p class="slogan">Descubra restaurantes por categoria e encontre o seu próximo prato favorito.</p>
+    </header>
+
+    <div class="separator"></div>
+    
+    <div class="categoria-restaurantes">
+        <h2><i class="fas fa-store"></i> Todos os Restaurantes</h2>
+        <div class="lista-de-cards">
+            
+            #{list items:restaurantes, as:'rest'}
+            <div class="restaurante-card">
+                <div class="foto-container">
+                    <img src="https://via.placeholder.com/400x160/A34E2B/FFFFFF?text=${rest.nomeDoRestaurante?.replaceAll(' ', '+') ?: 'Restaurante'}" alt="${rest.nomeDoRestaurante}">
+                </div>
+                <div class="info-e-acoes">
+                    <h3 class="nome-restaurante">${rest.nomeDoRestaurante}</h3>
+                    <span class="categoria"><i class="fas fa-tag"></i> ${rest.categoria}</span>
+                    
+                    <div class="botoes-acao">
+                        <a href="#" class="btn-acessar">Acessar</a> 
+                        
+                        %{
+                            // Lógica para verificar se o restaurante já está favoritado
+                            isFavorito = clienteConectado != null && clienteConectado.restaurantes.contains(rest);
+                        }%
+
+                        #{if clienteConectado}
+                            <a href="@{Favoritos.alternarFavorito(rest.id)}" 
+   class="btn-favoritar ${isFavorito ? 'favorito' : ''}" 
+   title="${isFavorito ? 'Remover dos Favoritos' : 'Adicionar aos Favoritos'}">
+    
+    <i class="${isFavorito ? 'fas fa-star' : 'far fa-star'}"></i> 
+</a>
+                        #{/if}
+                        #{else}
+                            <button class="btn-favoritar" title="Faça login para favoritar" disabled>
+                                <i class="far fa-star"></i>
+                            </button>
+                        #{/else}
+                    </div>
+                </div>
+            </div>
+            #{/list}
+            
+            #{if restaurantes.isEmpty()}
+                <p>Nenhum restaurante ativo encontrado.</p>
+            #{/if}
+            
+        </div>
+    </div>
+
+    <div class="card-cadastro">
+        <p>Seu restaurante não está aqui? Cadastre-se agora!</p>
+        <a href="@{restaurantes.formCadastrarRestaurante}" class="btn-cadastrar-restaurante">Cadastrar Meu Restaurante</a>
+    </div>
+
+</main>
+
+    
+>>>>>>> c670d922536d388f100c5e6f121e5ba9bcf29bc7
     
     <script>
         function toggleUserDropdown(e) {

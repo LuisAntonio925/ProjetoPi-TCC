@@ -19,9 +19,15 @@
 			<div class="vermelho">${flash.error}</div>
 			#{/if}
 
+<<<<<<< HEAD
          	#{if session['usuarioLogado']}
 						<p>
 							${session['usuarioLogado']}
+=======
+         	#{if session['clienteId']}
+						<p>
+							ID do Cliente: ${session['clienteId']}
+>>>>>>> c670d922536d388f100c5e6f121e5ba9bcf29bc7
 							<a href="@{Logins.logout}">Logout</a>
 						</p>
 					#{/if}

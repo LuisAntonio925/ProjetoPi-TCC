@@ -8,7 +8,11 @@
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.ALLOW_TERMINATE" value="false"/>
 <mapAttribute key="org.eclipse.jdt.launching.CONNECT_MAP">
+<<<<<<< HEAD
 <mapEntry key="port" value="0"/>
+=======
+<mapEntry key="port" value="8000"/>
+>>>>>>> c670d922536d388f100c5e6f121e5ba9bcf29bc7
 <mapEntry key="hostname" value="localhost"/>
 </mapAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="RestApp_site"/>

@@ -19,17 +19,29 @@
 		<link>
 			<name>docviewer</name>
 			<type>2</type>
+<<<<<<< HEAD
 			<location>C:/Users/luisa/Downloads/play-1.5.3-withJava1.8/play-1.5.3/modules/docviewer/app</location>
+=======
+			<location>C:/Users/20221064010025/Downloads/play-1.5.3/modules/docviewer/app</location>
+>>>>>>> c670d922536d388f100c5e6f121e5ba9bcf29bc7
 		</link>
 		<link>
 			<name>public/docviewer</name>
 			<type>2</type>
+<<<<<<< HEAD
 			<location>C:/Users/luisa/Downloads/play-1.5.3-withJava1.8/play-1.5.3/modules/docviewer/public</location>
+=======
+			<location>C:/Users/20221064010025/Downloads/play-1.5.3/modules/docviewer/public</location>
+>>>>>>> c670d922536d388f100c5e6f121e5ba9bcf29bc7
 		</link>
 	</linkedResources>
 	<filteredResources>
 		<filter>
+<<<<<<< HEAD
 			<id>1760312350505</id>
+=======
+			<id>1760631094318</id>
+>>>>>>> c670d922536d388f100c5e6f121e5ba9bcf29bc7
 			<name></name>
 			<type>30</type>
 			<matcher>

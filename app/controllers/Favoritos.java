@@ -31,6 +31,7 @@ public class Favoritos extends Controller {
     }
 
     public static void alternarFavorito(Long idRest) {
+<<<<<<< HEAD
         Cliente clienteConectado = Seguranca.getClienteConectado();
         
         if (clienteConectado == null) {
@@ -52,4 +53,39 @@ public class Favoritos extends Controller {
         }
         index();
     }
+=======
+    Cliente clienteConectado = Seguranca.getClienteConectado();
+    // ... (verifica se está logado)
+
+    Restaurante restaurante = Restaurante.findById(idRest);
+
+    if (restaurante != null) {
+        // Verifica se já está na lista
+        if (clienteConectado.restaurantes.contains(restaurante)) {
+            // Se estiver, remove
+            clienteConectado.restaurantes.remove(restaurante);
+            flash.success("'%s' foi removido dos seus favoritos.", restaurante.nomeDoRestaurante);
+        } else {
+            // Se não estiver, adiciona
+            clienteConectado.restaurantes.add(restaurante);
+            flash.success("'%s' foi adicionado aos seus favoritos!", restaurante.nomeDoRestaurante);
+        }
+
+        clienteConectado.save(); // Salva a alteração na lista de favoritos do cliente
+        // File: app/controllers/Favoritos.java
+
+// ... (método alternarFavorito)
+
+    if (restaurante != null) {
+        // ... (lógica de adicionar/remover e salvar)
+        clienteConectado.save();
+    }
+    // CORREÇÃO: Agora volta para a página principal (Gerenciamentos.principal)
+    Gerenciamentos.principal();
+}
+index(); // Volta para a página de favoritos
+    }
+
+    
+>>>>>>> c670d922536d388f100c5e6f121e5ba9bcf29bc7
 }

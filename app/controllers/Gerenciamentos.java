@@ -11,8 +11,20 @@ import play.mvc.With;
 @With(Seguranca.class)
 public class Gerenciamentos extends Controller {
     
+<<<<<<< HEAD
     public static void principal() {
         render();
+=======
+   // MODIFICADO: Agora carrega os restaurantes e o cliente para a view.
+    public static void principal() {
+        Cliente clienteConectado = Seguranca.getClienteConectado();
+        
+        // Busca todos os restaurantes ATIVOS para exibir no feed
+        List<Restaurante> restaurantes = models.Restaurante.find("status = ?1", models.Status.ATIVO).fetch();
+        
+        // Renderiza a view, passando a lista de restaurantes e o cliente
+        render(restaurantes, clienteConectado); 
+>>>>>>> c670d922536d388f100c5e6f121e5ba9bcf29bc7
     }
 	 public static void principal2() {
         render();

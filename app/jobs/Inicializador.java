@@ -1,3 +1,4 @@
+// luisantonio925/projetopi-tcc/ProjetoPi-TCC-1f367715d58cce63ad3bf1ce68416d2a7aad77b1/app/jobs/Inicializador.java
 package jobs;
 
 import models.Cliente;
@@ -14,7 +15,7 @@ public class Inicializador extends Job {
 			Cliente joao = new Cliente();
 			joao.nome = "João da Silva";
 			joao.email = "joaossilva@gmail.com";
-			joao.senha = "1111";
+			joao.setSenha("1111"); // CORREÇÃO: Chama o setter para criptografar a senha.
 			joao.nivel = "1";
 			joao.save();
 			

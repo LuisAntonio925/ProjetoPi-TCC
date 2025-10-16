@@ -1,3 +1,4 @@
+// luisantonio925/projetopi-tcc/ProjetoPi-TCC-1f367715d58cce63ad3bf1ce68416d2a7aad77b1/app/controllers/Favoritos.java
 package controllers;
 
 import models.Cliente;
@@ -14,8 +15,8 @@ public class Favoritos extends Controller {
         Cliente clienteConectado = Seguranca.getClienteConectado();
         
         if (clienteConectado == null) {
-            // CORREÇÃO: Redireciona para a ação 'form' do seu controller 'Logins'.
-            redirect("Logins.form");
+            // CORREÇÃO: Redireciona (forward) para a ação 'form' do controller 'Logins'.
+            Logins.form(); // Chamada direta para um forward interno.
         }
         
         List<Restaurante> meusFavoritos = clienteConectado.restaurantes;
@@ -33,8 +34,8 @@ public class Favoritos extends Controller {
         Cliente clienteConectado = Seguranca.getClienteConectado();
         
         if (clienteConectado == null) {
-            // CORREÇÃO: Redireciona para a ação 'form' do seu controller 'Logins'.
-            redirect("Logins.form");
+            // CORREÇÃO: Redireciona (forward) para a ação 'form' do controller 'Logins'.
+            Logins.form(); // Chamada direta para um forward interno.
         }
 
         Restaurante restaurante = Restaurante.findById(idRest);

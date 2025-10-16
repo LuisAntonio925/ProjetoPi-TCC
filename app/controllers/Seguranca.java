@@ -1,3 +1,4 @@
+// luisantonio925/projetopi-tcc/ProjetoPi-TCC-1f367715d58cce63ad3bf1ce68416d2a7aad77b1/app/controllers/Seguranca.java
 package controllers;
 
 import models.Cliente;
@@ -9,7 +10,7 @@ public class Seguranca extends Controller{
 	@Before
 	
 	static void verificarAutenticacao() {
-		if (!session.contains("usuarioLogado")) {
+		if (!session.contains("clienteId")) { // CORREÇÃO: Verifica a chave 'clienteId'
 			flash.error("Você deve logar no sistema.");
 			Logins.form();
 		}

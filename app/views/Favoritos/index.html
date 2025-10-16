@@ -1,0 +1,46 @@
+#{extends 'main.html' /}
+#{set title:'Meus Favoritos' /}
+
+<style>
+    /* ... cole o CSS da sua página listar.html aqui ... */
+    .favoritos-section { margin-bottom: 50px; }
+    .action-btn.favorite { background-color: #28a745; } /* Verde para favoritar */
+    .action-btn.unfavorite { background-color: #dc3545; } /* Vermelho para desfavoritar */
+</style>
+
+<header class="header">
+    <h1>Restaurantes Favoritos</h1>
+    <p class="slogan">Sua lista pessoal de lugares preferidos.</p>
+</header>
+
+<div class="separator"></div>
+
+<main>
+    <div class="client-list-section favoritos-section">
+        <h2><i class="fas fa-heart"></i> Meus Favoritos</h2>
+        
+        #{if meusFavoritos.isEmpty()}
+            <div class="no-clients-message">
+                <p>Você ainda não favoritou nenhum restaurante.</p>
+            </div>
+        #{/if}
+        #{else}
+            <ul>
+                #{list items:meusFavoritos, as:'rest'}
+                <li class="client-item">
+                    <div class="client-info">
+                        <span class="name">${rest.nomeDoRestaurante}</span>
+                        <span class="contact"><i class="fas fa-tag"></i> ${rest.categoria}</span>
+                    </div>
+                    <div class="client-actions">
+                        <a href="@{Favoritos.alternarFavorito(rest.id)}" class="action-btn unfavorite">
+                            <i class="fas fa-heart-crack"></i> Remover
+                        </a>
+                    </div>
+                </li>
+                #{/list}
+            </ul>
+        #{/else}
+    </div>
+
+</main>
